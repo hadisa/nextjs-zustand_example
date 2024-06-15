@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Next js 14.2.4 with tailwind configuration
 
 ## Getting Started
 
@@ -20,14 +20,39 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Zustand 
 
-To learn more about Next.js, take a look at the following resources:
+Zustand is a small, fast, and scalable bearbones state-management solution that is easy to integrate with Next.js. I'll walk you through creating a Zustand store to manage your data and then how to use it in a Next.js component.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+import create from 'zustand';
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+const useUserStore = create((set) => ({
+  users: [],
+  addUser: (user) => set((state) => ({ users: [...state.users, user] })),
+  removeUser: (identityId) => set((state) => ({
+    users: state.users.filter((user) => user.identityId !== identityId)
+  })),
+  updateUser: (updatedUser) => set((state) => ({
+    users: state.users.map((user) =>
+      user.identityId === updatedUser.identityId ? updatedUser : user
+    )
+  }))
+}));
+
+export default useUserStore;
+
+```
+How to call it 
+
+```
+  const { users, addUser, removeUser, updateUser } = useUserStore((state) => ({
+    users: state.users,
+    addUser: state.addUser,
+    removeUser: state.removeUser,
+    updateUser: state.updateUser,
+  }));
+```
 
 ## Deploy on Vercel
 
