@@ -1,6 +1,13 @@
-import { AUTH_USER_ID, CHANEL_ID, CHANNEL_NAME, CHANNEL_SLUG, CLOCK_IN_STATUS, END_TIME, START_TIME } from '@/type/constant';
-import create from 'zustand';
-
+import {
+  AUTH_USER_ID,
+  CHANEL_ID,
+  CHANNEL_NAME,
+  CHANNEL_SLUG,
+  CLOCK_IN_STATUS,
+  END_TIME,
+  START_TIME,
+} from "@/type/constant";
+import { create } from "zustand";
 
 interface State {
   authUserId: string | null;
